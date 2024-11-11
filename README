@@ -1,0 +1,14 @@
+npm start -- --provider https://rpc.hydradx.cloud --contract 0xeDD9A7C47A9F91a0F2db93978A88844167B4a04f
+
+> chainlink-oracle-scanner@1.0.0 start
+> node index.js --provider https://rpc.hydradx.cloud --contract 0xeDD9A7C47A9F91a0F2db93978A88844167B4a04f
+
+Scanning contracts for Chainlink price feeds...
+
+Found Chainlink Price Feed:
+Address: 0xeDD9A7C47A9F91a0F2db93978A88844167B4a04f
+Pair: WBTC/USD Oracle
+Current Price: 82181.42384602
+Last Update: 2024-11-11T12:37:33.000Z
+Round ID: 6376215
+-------------------
