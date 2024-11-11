@@ -1,0 +1,28 @@
+{
+  "name": "chainlink-oracle-scanner",
+  "version": "1.0.0",
+  "description": "CLI tool to scan and retrieve information from Chainlink price oracles",
+  "main": "index.js",
+  "bin": {
+    "chainlink-scanner": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "chainlink",
+    "ethereum",
+    "oracle",
+    "price-feed",
+    "blockchain"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "yargs": "^17.7.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
