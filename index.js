@@ -27,7 +27,7 @@ async function isChainlinkPriceFeed(provider, contractAddress) {
 
 async function getPriceFeedInfo(provider, contractAddress) {
     const contract = new ethers.Contract(contractAddress, CHAINLINK_AGGREGATOR_ABI, provider);
-    
+
     try {
         const [decimals, description, latestData] = await Promise.all([
             contract.decimals(),
@@ -44,6 +44,8 @@ async function getPriceFeedInfo(provider, contractAddress) {
             price: price,
             lastUpdate: updatedAt.toISOString(),
             roundId: latestData.roundId.toString(),
+            decimals: decimals.toString(),
+            answer: latestData.answer.toString()
         };
     } catch (error) {
         console.error(`Error fetching data for ${contractAddress}:`, error.message);
@@ -71,12 +73,12 @@ async function main() {
     const provider = new ethers.providers.JsonRpcProvider(argv.provider);
 
     console.log('Scanning contracts for Chainlink price feeds...\n');
-	
+
 	const address = argv.contract;
 
         try {
             const isOracle = await isChainlinkPriceFeed(provider, address);
-            
+
             if (true) {
                 const info = await getPriceFeedInfo(provider, address);
                 if (info) {
@@ -86,6 +88,8 @@ async function main() {
                     console.log('Current Price:', info.price);
                     console.log('Last Update:', info.lastUpdate);
                     console.log('Round ID:', info.roundId);
+                    console.log('Decimals:', info.decimals);
+                    console.log('Answer:', info.answer);
                     console.log('-------------------\n');
                 }
             } else {
