@@ -31,24 +31,24 @@ async function getPriceFeedInfo(provider, contractAddress) {
 
     try {
         const [decimals, description, latestData, latestAnswer] = await Promise.all([
-            contract.decimals(),
-            contract.description(),
-            contract.latestRoundData(),
-            contract.latestAnswer(),
+            contract.decimals().catch(() => undefined),
+            contract.description().catch(() => undefined),
+            contract.latestRoundData().catch(() => undefined),
+            contract.latestAnswer().catch(() => undefined),
         ]);
 
-        const price = parseFloat(latestData.answer.toString()) / Math.pow(10, decimals);
-        const updatedAt = new Date(latestData.updatedAt.toNumber() * 1000);
+        const price = parseFloat(latestAnswer.toString()) / Math.pow(10, decimals || 8);
+        const updatedAt = latestData ? new Date(latestData.updatedAt.toNumber() * 1000) : undefined;
 
         return {
             address: contractAddress,
             pair: description,
             price: price,
             latestAnswer: latestAnswer.toString(),
-            lastUpdate: updatedAt.toISOString(),
-            roundId: latestData.roundId.toString(),
-            decimals: decimals.toString(),
-            answer: latestData.answer.toString()
+            lastUpdate: updatedAt?.toISOString(),
+            roundId: latestData?.roundId.toString(),
+            decimals: decimals?.toString(),
+            answer: latestData?.answer.toString()
         };
     } catch (error) {
         console.error(`Error fetching data for ${contractAddress}:`, error.message);
